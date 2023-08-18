@@ -141,4 +141,15 @@ Los ejercicios son los siguientes:
 
   - Uso de ficheros .env, vite-env.d.ts y carga de variables de entorno en Vite.
   - Auth0
+
     - `https://auth0.com/es`
+
+  - FIN DEL LIBRO
+
+- 16-useEffect-problemas-tipicos
+
+  A partir de este punto, los proyectos serán de videos o cosas que vea útiles del mundo de React.
+
+  En este proyecto vamos a ver problemas típicos al usar useEffect y como resolverlos.
+
+  Cogido del video de YouTube: `https://www.youtube.com/watch?v=QQYeipc_cik`
