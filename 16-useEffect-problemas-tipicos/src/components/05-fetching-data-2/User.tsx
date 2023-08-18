@@ -1,3 +1,4 @@
+import axios, { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -36,17 +37,21 @@ export const User = () => {
   //?     Si queremos cancelar la petición mandamos el signal en la función de limpieza y el método
   //?     fetch será destruido inmediatamente, esto usando el método abort()
   //?     Se lanza un error en consola al abortar, que recogemos en el catch.
+  //?
+  //?     Usando axios, en vez de usar AbortController se usa axios.CancelToken.source() y para cancelar
+  //?     usaremos en la función limpiadora el método cancelToken.cancel()
+  //?     Y al get tenemos que pasarle el token.
+  //?     En el catch, para saber si se ha cancelado, usaremos el método axios.isCancel()
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+    const cancelToken = axios.CancelToken.source();
 
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`, { signal })
-      .then((res) => res.json())
-      .then((data: UserProps) => {
-        setUser(data);
+    axios
+      .get<UserProps>(`https://jsonplaceholder.typicode.com/users/${id}`, { cancelToken: cancelToken.token })
+      .then((res) => {
+        setUser(res.data);
       })
       .catch((err: Error) => {
-        if (err.name === 'AbortError') {
+        if (axios.isCancel(err)) {
           console.log('cancelled!');
         } else {
           // todo: manejar error usando un state por ejemplo
@@ -54,7 +59,7 @@ export const User = () => {
       });
 
     return () => {
-      controller.abort();
+      cancelToken.cancel();
     };
   }, [id]);
 
