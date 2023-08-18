@@ -29,21 +29,32 @@ export const User = () => {
   //?   1. De nuevo se crea de nueva una función de limpieza y una variable que indica cuando se
   //?     debe o no actualizar el estado.
   //?     Esto se puede hacer si es necesario también en el catch.
+  //?
+  //?   2. Usar una función limpiadora profesional usando AbortController.
+  //?     Nos permite interceptar una petición API y así poder cancelarla cuando queramos.
+  //?     Usamos su función signal y la pasamos al método fetch como opción.
+  //?     Si queremos cancelar la petición mandamos el signal en la función de limpieza y el método
+  //?     fetch será destruido inmediatamente, esto usando el método abort()
+  //?     Se lanza un error en consola al abortar, que recogemos en el catch.
   useEffect(() => {
-    let unsubscribed = false;
+    const controller = new AbortController();
+    const signal = controller.signal;
 
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+    fetch(`https://jsonplaceholder.typicode.com/users/${id}`, { signal })
       .then((res) => res.json())
       .then((data: UserProps) => {
-        if (!unsubscribed) {
-          setUser(data);
-        }
+        setUser(data);
       })
-      .catch(console.error);
+      .catch((err: Error) => {
+        if (err.name === 'AbortError') {
+          console.log('cancelled!');
+        } else {
+          // todo: manejar error usando un state por ejemplo
+        }
+      });
 
     return () => {
-      console.log('cancelled!');
-      unsubscribed = true;
+      controller.abort();
     };
   }, [id]);
 
