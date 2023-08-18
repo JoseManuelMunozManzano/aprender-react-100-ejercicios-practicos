@@ -17,8 +17,12 @@ export const Counter = () => {
     //
     // Con el nuevo useState creado, name, aunque no tiene nada que ver con number,
     // fuerza la renderización y la ejecución de este useEffect.
+    //
+    //? SOLUCIÓN: indicar dependencias
+    // Ahora solo se ejecuta este useEffect tras tocar el botón Incrementar, no tras
+    // cambiar el nombre.
     document.title = `Has pulsado ${number} veces`;
-  });
+  }, [number]);
 
   console.count('componente renderizado!');
 
