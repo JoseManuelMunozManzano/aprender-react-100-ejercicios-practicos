@@ -13,6 +13,15 @@ export const User = () => {
 
   // Cuando pulsamos en cualquiera de los enlaces de abajo cambia el id y se ejecuta useEffect
   // que actualiza setUser y renderiza la página con la nueva información traída.
+  //
+  // Problema: No estamos indicando ninguna función de limpieza.
+  //
+  // Para ver como afecta este problema, de nuevo en las herramientas de desarrollador de Chrome (F12)
+  // seleccionar la pestaña Network y poner Slow 3G.
+  // Pulsar en el enlace Fetch User 2 y rápidamente en Fetch User 3
+  // Veremos que, aunque la url mostrada en la del user/3 la información es la del usuario 2
+  //
+  // Esto ocurre porque no se ha cancelado la petición de usuario 2 y se ha actualizado el estado.
   useEffect(() => {
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
       .then((res) => res.json())
@@ -27,11 +36,11 @@ export const User = () => {
       <p>Name: {user.name}</p>
       <p>Username: {user.username}</p>
       <p>Email: {user.email}</p>
-      <Link to="/users/1">Fetch User1</Link>
+      <Link to="/users/1">Fetch User 1</Link>
       <br />
-      <Link to="/users/2">Fetch User2</Link>
+      <Link to="/users/2">Fetch User 2</Link>
       <br />
-      <Link to="/users/3">Fetch User3</Link>
+      <Link to="/users/3">Fetch User 3</Link>
     </div>
   );
 };
