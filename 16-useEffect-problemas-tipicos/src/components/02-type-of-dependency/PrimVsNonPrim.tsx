@@ -19,6 +19,19 @@ export const PrimVsNonPrim = () => {
     //
     // Pulso de nuevo el botón Select, nada cambia --> Se ejecuta este useEffect!!!!
     // ¿Por qué? No se ha cambiado nada!!
+    //
+    // Esto ocurre porque hay una diferencia entre tipos de datos primitivos y no primitivos.
+    // strings, numbers, booleans, null y undefined son primitivos
+    // objetos y arrays son NO primitivos
+    //
+    // Cuando comparamos tipos de datos primitivos, lo que se compara es EL CONTENIDO.
+    // a = Pepe, b = Pepe  --> a === b da como resultado true
+    //
+    // Cuando comparamos tipos de datos no primitivos, lo que se compara es LA DIRECCIÓN DE MEMORIA
+    // x = {name: 'Pepe'}, y = {name: 'Pepe'} --> a === b da como resultado false
+    // z = x --> x === a da como resultado true
+    // [] === [] da como resultado false
+    // [1] === [1] da como resultado false
     console.log('El estado ha cambiado, se ejecuta useEffect');
   }, [state]);
 
