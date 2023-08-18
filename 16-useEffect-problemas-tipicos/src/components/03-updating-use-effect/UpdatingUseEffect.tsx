@@ -19,6 +19,9 @@ export const UpdatingUseEffect = () => {
     // Hemos añadido un console.log y un texto en el div al lado de {number}
     // Ahora vemos en el navegador como el contador se comporta de una forma muy extraña.
     // Cada vez que añado más texto en el div al lado de {number} se vuelve peor el problema.
+    //
+    // Este error ocurre porque en cada renderizado estamos creando un nuevo interval sin limpiar el anterior.
+    // Para encontrar este tipo de error es para lo que <React.StrictMode> viene muy bien.
     setInterval(() => {
       console.log('effect');
       setNumber((prev) => prev + 1);
