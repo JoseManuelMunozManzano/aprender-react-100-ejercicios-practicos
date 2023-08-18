@@ -5,6 +5,13 @@ export const Counter = () => {
   const [name, setName] = useState('');
 
   useEffect(() => {
+    console.count('Segundo useEffect ejecutándose');
+    setName('Pepe');
+    // Indicando un array vacío indicamos que no tenemos dependencias y solo se ejecuta
+    // cuando se renderiza por primera vez el componente.
+  }, []);
+
+  useEffect(() => {
     console.count('useEffect ejecutándose!');
     // Si pulsamos muy rápido el botón Incrementar vemos que hay un delay entre
     // el texto del span y el título de la página web.
@@ -33,7 +40,7 @@ export const Counter = () => {
       <button onClick={() => setNumber((prev) => prev + 1)}>INCREMENTAR</button>
       <br />
       <br />
-      <input onChange={(e) => setName(e.target.value)} />
+      <input onChange={(e) => setName(e.target.value)} value={name} />
     </div>
   );
 };
