@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 export const Counter = () => {
   const [number, setNumber] = useState(0);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     console.count('useEffect ejecutándose!');
@@ -13,6 +14,9 @@ export const Counter = () => {
     //
     // Hay un problema aquí porque useEffect se ejecuta en cada renderizado, incluso
     // aunque lo que se actualiza no tenga nada que ver con number.
+    //
+    // Con el nuevo useState creado, name, aunque no tiene nada que ver con number,
+    // fuerza la renderización y la ejecución de este useEffect.
     document.title = `Has pulsado ${number} veces`;
   });
 
@@ -23,6 +27,9 @@ export const Counter = () => {
       <span>Has pulsado {number} veces</span>
       <br />
       <button onClick={() => setNumber((prev) => prev + 1)}>INCREMENTAR</button>
+      <br />
+      <br />
+      <input onChange={(e) => setName(e.target.value)} />
     </div>
   );
 };
