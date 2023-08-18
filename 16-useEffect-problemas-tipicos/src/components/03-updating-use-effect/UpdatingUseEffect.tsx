@@ -6,7 +6,6 @@ export const UpdatingUseEffect = () => {
   useEffect(() => {
     // Si ejecutamos este componente en el navegador veremos que pasa algo raro.
     // Ocurre un extraño glitch.
-
     // Este error ocurre porque number cambia cada segundo y como es nuestra dependencia
     // ejecuta este useEffect sin parar.
     //
@@ -22,11 +21,22 @@ export const UpdatingUseEffect = () => {
     //
     // Este error ocurre porque en cada renderizado estamos creando un nuevo interval sin limpiar el anterior.
     // Para encontrar este tipo de error es para lo que <React.StrictMode> viene muy bien.
-    setInterval(() => {
+    //
+    //? SOLUCION
+    //? Necesitamos usar una función de limpiado.
+    //? Tras añadirla vemos que tras cada renderizado limpia el interval anterior.
+    //? Ya no ocupa sitio en memoria.
+    const interval = setInterval(() => {
       console.log('effect');
       setNumber((prev) => prev + 1);
     }, 1000);
+
+    //! Función de limpiado
+    // Muy útil, evita fugas de memoria y hace las aplicaciones más rápidas.
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
-  return <div>{number}aaabbbbb</div>;
+  return <div>{number}cleaning time</div>;
 };
