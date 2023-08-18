@@ -22,13 +22,29 @@ export const User = () => {
   // Veremos que, aunque la url mostrada en la del user/3 la información es la del usuario 2
   //
   // Esto ocurre porque no se ha cancelado la petición de usuario 2 y se ha actualizado el estado.
+  //
+  //? SOLUCION
+  //? Hay más de una solución.
+  //?
+  //?   1. De nuevo se crea de nueva una función de limpieza y una variable que indica cuando se
+  //?     debe o no actualizar el estado.
+  //?     Esto se puede hacer si es necesario también en el catch.
   useEffect(() => {
+    let unsubscribed = false;
+
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
       .then((res) => res.json())
       .then((data: UserProps) => {
-        setUser(data);
+        if (!unsubscribed) {
+          setUser(data);
+        }
       })
       .catch(console.error);
+
+    return () => {
+      console.log('cancelled!');
+      unsubscribed = true;
+    };
   }, [id]);
 
   return (
