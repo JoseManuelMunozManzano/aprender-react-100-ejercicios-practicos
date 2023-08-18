@@ -4,9 +4,6 @@ export const UpdatingUseEffect = () => {
   const [number, setNumber] = useState<number>(0);
 
   useEffect(() => {
-    // Este console.log es un bucle infinito.
-    console.log('effect');
-
     // Si ejecutamos este componente en el navegador veremos que pasa algo raro.
     // Ocurre un extraño glitch.
 
@@ -19,11 +16,14 @@ export const UpdatingUseEffect = () => {
     //
     // Pero esto lleva a un segundo problema!!!
     // Función de limpiado de useEffect
+    // Hemos añadido un console.log y un texto en el div al lado de {number}
+    // Ahora vemos en el navegador como el contador se comporta de una forma muy extraña.
+    // Cada vez que añado más texto en el div al lado de {number} se vuelve peor el problema.
     setInterval(() => {
-      // setNumber(number + 1);
+      console.log('effect');
       setNumber((prev) => prev + 1);
     }, 1000);
   }, []);
 
-  return <div>{number}</div>;
+  return <div>{number}aaabbbbb</div>;
 };
