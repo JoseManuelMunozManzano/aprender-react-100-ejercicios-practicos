@@ -153,3 +153,10 @@ Los ejercicios son los siguientes:
   En este proyecto vamos a ver problemas típicos al usar useEffect y como resolverlos.
 
   Cogido del video de YouTube: `https://www.youtube.com/watch?v=QQYeipc_cik`
+
+  Se ve:
+
+  - ¿Cuándo y cómo se ejecuta?
+  - ¿Cómo funcionan las dependencias?
+  - Dependencias de primitivos y no primitivos
+  - Limpiar funciones
