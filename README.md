@@ -177,4 +177,9 @@ Los ejercicios son los siguientes:
   comparado con useState, aunque hace que el código sea más limpio.
 
   ¿Cuándo usar useState y cuándo usar useReducer?
-  El primer caso de uso es cuando se actualizan muchos estados en una función.
+  El primer caso de uso es cuando se actualizan muchos estados en una función. Cuando dos o más estados cambian juntos,
+  es mejor usar el hook useReducer.
+
+  El segundo caso de uso es cuando tenemos un estado muy complejo y necesitamos actualizar cada una de las propiedades.
+  En ese caso deberíamos usar useReducer, porque si los elementos del formulario (hay suele haber mucho estado) no son
+  del mismo tipo, va a ser más difícil manejarlos en el componente, reduciendo la legibilidad.
