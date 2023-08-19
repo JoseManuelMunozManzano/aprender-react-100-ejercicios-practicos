@@ -1,35 +1,10 @@
-import { useRef, useState } from 'react';
-
-type Tag = string;
-
-interface Product {
-  title: string;
-  desc: string;
-  price: number;
-  category: string;
-  tags: Tag[];
-  images: {
-    sm: string;
-    md: string;
-    lg: string;
-  };
-  quantity: number;
-}
+import { useReducer, useRef } from 'react';
+import { formReducer, INITIAL_STATE, Tag } from './formReducer';
 
 export const Form = () => {
-  const [product, setProduct] = useState<Product>({
-    title: '',
-    desc: '',
-    price: 0,
-    category: '',
-    tags: [],
-    images: {
-      sm: '',
-      md: '',
-      lg: '',
-    },
-    quantity: 0,
-  });
+  const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+
+  // Para acceder al text indicado en el Text Area
   const tagRef = useRef<HTMLTextAreaElement>(null);
 
   // Segundo caso
@@ -37,43 +12,36 @@ export const Form = () => {
   // trabajarlo con un useReducer, haciendo el código más legigle.
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    dispatch({ type: 'changeInput', payload: { name: e.target.name, value: e.target.value } });
   };
+
+  console.log(state);
 
   const handleTags = () => {
     const tags = tagRef.current!.value.split(',');
     tags.forEach((tag) => {
-      setProduct((prev) => ({ ...prev, tags: [...prev.tags, tag] }));
+      dispatch({ type: 'addTag', payload: tag });
     });
   };
 
   const handleRemoveTag = (tag: Tag) => {
-    setProduct((prev) => ({
-      ...prev,
-      tags: prev.tags.filter((t) => t !== tag),
-    }));
+    dispatch({ type: 'removeTag', payload: tag });
   };
 
   const handleIncrease = () => {
-    setProduct((prev) => ({ ...prev, quantity: prev.quantity + 1 }));
+    dispatch({ type: 'increase' });
   };
 
   const handleDecrease = () => {
-    setProduct((prev) => ({
-      ...prev,
-      quantity: prev.quantity - 1,
-    }));
+    dispatch({ type: 'decrease' });
   };
 
   return (
     <div>
       <form>
         <input type="text" name="title" onChange={handleChange} placeholder="Title" />
-        <br />
         <input type="text" name="desc" onChange={handleChange} placeholder="Desc" />
-        <br />
         <input type="number" name="price" onChange={handleChange} placeholder="Price" />
-        <br />
         <p>Category:</p>
         <select name="category" id="category" onChange={handleChange}>
           <option value="sneakers">Sneakers</option>
@@ -82,23 +50,21 @@ export const Form = () => {
         </select>
         <p>Tags:</p>
         <textarea ref={tagRef} placeholder="Seperate tags with commas..."></textarea>
-        <br />
         <button type="button" onClick={handleTags}>
           Add Tags
         </button>
         <div className="tags">
-          {product.tags.map((tag) => (
+          {state.tags!.map((tag) => (
             <small key={tag} onClick={() => handleRemoveTag(tag)}>
               {tag}
             </small>
           ))}
         </div>
-        <br />
         <div className="quantity">
           <button type="button" onClick={handleDecrease}>
             -
           </button>
-          <span>Quantity ({product.quantity})</span>
+          <span>Quantity ({state.quantity})</span>
           <button type="button" onClick={handleIncrease}>
             +
           </button>
