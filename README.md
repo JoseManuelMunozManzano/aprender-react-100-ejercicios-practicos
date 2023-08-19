@@ -160,3 +160,21 @@ Los ejercicios son los siguientes:
   - ¿Cómo funcionan las dependencias?
   - Dependencias de primitivos y no primitivos
   - Limpiar funciones
+
+- 17-useReducer-ejemplos
+
+  En este proyecto vamos a ver como aprender a usar useReducer con ejemplos.
+
+  Cogido del video de YouTube: `https://www.youtube.com/watch?v=RZPAQV7JvNU`
+
+  Una vez sepamos por qué y cuando usarlo, seremos capaces de manejar estados de React de una manera más profesional, y
+  entenderemos la estructura de Context API y manejo de estado como Redux.
+
+  useReducer es un hook de React que nos permite manejar estados de los componentes. Básicamente es una alternativa a
+  useState, en el sentido de que ambos crean un nuevo estado y lo actualizan.
+  La diferencia estriba en la forma de actualizar los estados.
+  Con useState, usamos la función para actualizar la variable de estdo, pero en useReducer esto es un poco más complicado
+  comparado con useState, aunque hace que el código sea más limpio.
+
+  ¿Cuándo usar useState y cuándo usar useReducer?
+  El primer caso de uso es cuando se actualizan muchos estados en una función.
