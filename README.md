@@ -190,4 +190,10 @@ Los ejercicios son los siguientes:
   Recordar que cuando cambia un state se renderiza no solo el componente, sino todos sus componentes hijos.
   La idea es memoizar (tener en caché) funciones pesadas y componentes hijos para hacer las aplicaciones más rápidas.
 
+  Usaremos useMemo para memoizar valores y React.memo para memoizar componentes pesados.
+
+  Pero es importante indicar que NUNCA SE DEBE MEMOIZAR PORQUE SI. Memoizar no sale gratis y los componentes y funciones
+  memoizadas va a memoria temporal, por lo que si se usa en exceso puede causar problemas.
+  Solo debe usarse cuando son funciones y componentes pesados.
+
   Codigo del video de YouTube: `https://www.youtube.com/watch?v=6-BfMpTT2PE`

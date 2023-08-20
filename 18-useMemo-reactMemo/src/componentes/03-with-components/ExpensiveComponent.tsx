@@ -1,4 +1,8 @@
-export const ExpensiveComponent = () => {
+import React from 'react';
+
+//? SOLUCION:
+//? Usar React.Memo para memoizar el componente y que no se re-renderize si no es necesario.
+export const ExpensiveComponent = React.memo(() => {
   console.log('Componente pesado renderizado!');
 
   let total = 0;
@@ -7,4 +11,4 @@ export const ExpensiveComponent = () => {
   }
 
   return <div>{total}</div>;
-};
+});
