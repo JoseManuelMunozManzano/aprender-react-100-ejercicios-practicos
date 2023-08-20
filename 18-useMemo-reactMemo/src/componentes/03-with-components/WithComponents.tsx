@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { ExpensiveComponent } from './ExpensiveComponent';
 
 export const WithComponents = () => {
+  const [text, setText] = useState<string>('');
+
   console.log('Componente renderizado');
 
   return (
-    <div>
+    // PROBLEMA2: Usamos el state en el padre
+    <div style={{ backgroundColor: text }}>
       {/* PROBLEMA:
       No deberíamos llamar a este componente si no es necesario porque es muy pesado y causa delay
       cuando actualizamos el input.
       Pero ya sabemos que cuando se renderiza el padre también se renderiza el hijo, así que cuando
       actualizamos el input se renderiza este componente y el componente pesado. */}
-      <Form />
+      <input type="text" onChange={(e) => setText(e.target.value)} placeholder="Enter a text" />
       <ExpensiveComponent />
     </div>
   );
@@ -25,8 +28,9 @@ export const WithComponents = () => {
 //? componente.
 //?
 //? ¿Pero qué ocurre si necesitamos usar este state en el componente padre?
-const Form = () => {
-  const [text, setText] = useState<string>('');
+//? Esto no valdría.
+// const Form = () => {
+//   const [text, setText] = useState<string>('');
 
-  return <input type="text" onChange={(e) => setText(e.target.value)} placeholder="Enter a text" />;
-};
+//   return <input type="text" onChange={(e) => setText(e.target.value)} placeholder="Enter a text" />;
+// };
