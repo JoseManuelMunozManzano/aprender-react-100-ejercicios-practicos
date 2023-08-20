@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export const WithObject = () => {
   const [name, setName] = useState<string>('');
@@ -16,10 +16,19 @@ export const WithObject = () => {
   // Esto significa que, incluso aunque cambie name, y userType NO TIENE NADA QUE VER CON NAME, se va a volver
   // a renderizar porque la dirección de memoria de userType entre renderizados cambia porque userType se vuelve
   // a asignar!!
-  const userType = {
-    underAge: age! < 18 ? true : false,
-    citizen: country === 'USA' ? true : false,
-  };
+  //
+  //? SOLUCION
+  //? Usar useMemo e indicar las dependencias.
+  //? Ahora solo se ejecutará userType cuando cambien age o country.
+  //? RECORDAR: objetos y arrays (no primitivos) que necesitan usarse como dependecia en un useEffect, pueden
+  //? envolverse con el hook useMemo.
+  const userType = useMemo(
+    () => ({
+      underAge: age! < 18 ? true : false,
+      citizen: country === 'USA' ? true : false,
+    }),
+    [age, country]
+  );
 
   useEffect(() => {
     console.count('userType ha cambiado!');
