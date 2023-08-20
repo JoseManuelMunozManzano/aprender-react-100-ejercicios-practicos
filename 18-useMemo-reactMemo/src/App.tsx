@@ -1,10 +1,11 @@
 import './App.css';
-import { Expensive } from './componentes/01-expensive-function/Expensive';
+import { /* Expensive, */ ExpensiveWithDependency } from './componentes/01-expensive-function';
 
 function App() {
   return (
     <>
-      <Expensive />
+      {/* <Expensive /> */}
+      <ExpensiveWithDependency />
     </>
   );
 }
