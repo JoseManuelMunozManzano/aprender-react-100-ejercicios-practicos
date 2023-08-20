@@ -189,3 +189,5 @@ Los ejercicios son los siguientes:
   Usado para mejorar el performance de las aplicaciones hechas en React.
   Recordar que cuando cambia un state se renderiza no solo el componente, sino todos sus componentes hijos.
   La idea es memoizar (tener en caché) funciones pesadas y componentes hijos para hacer las aplicaciones más rápidas.
+
+  Codigo del video de YouTube: `https://www.youtube.com/watch?v=6-BfMpTT2PE`
