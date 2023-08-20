@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 
+interface UserType {
+  underAge: boolean;
+  citizen: boolean;
+}
+
 export const WithObject = () => {
   const [name, setName] = useState<string>('');
   const [age, setAge] = useState<number | null>(null);
@@ -22,17 +27,29 @@ export const WithObject = () => {
   //? Ahora solo se ejecutará userType cuando cambien age o country.
   //? RECORDAR: objetos y arrays (no primitivos) que necesitan usarse como dependecia en un useEffect, pueden
   //? envolverse con el hook useMemo.
-  const userType = useMemo(
-    () => ({
-      underAge: age! < 18 ? true : false,
-      citizen: country === 'USA' ? true : false,
-    }),
-    [age, country]
-  );
+  //?
+  // const userType = useMemo(
+  //   () => ({
+  //     underAge: age! < 18,
+  //     citizen: country === 'USA',
+  //   }),
+  //   [age, country]
+  // );
+
+  // useEffect(() => {
+  //   console.count('userType ha cambiado!');
+  // }, [userType]);
+
+  //? SOLUCION 2 EVITANDO useMemo
+  //? Cambiamos la dependencia de useEffect usando cada propiedad del objeto que cambia, en vez del objeto en si.
+  const userType: UserType = {
+    underAge: age! < 18,
+    citizen: country === 'USA',
+  };
 
   useEffect(() => {
     console.count('userType ha cambiado!');
-  }, [userType]);
+  }, [userType.underAge, userType.citizen]);
 
   console.log('Componente renderizado!');
 
