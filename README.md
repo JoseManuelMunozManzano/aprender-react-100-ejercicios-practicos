@@ -196,4 +196,6 @@ Los ejercicios son los siguientes:
   memoizadas va a memoria temporal, por lo que si se usa en exceso puede causar problemas.
   Solo debe usarse cuando son funciones y componentes pesados.
 
+  Por eso también veremos alternativas a useMemo y React.memo
+
   Codigo del video de YouTube: `https://www.youtube.com/watch?v=6-BfMpTT2PE`
